@@ -8,6 +8,7 @@ import streamlit as st
 import requests
 import os
 load_dotenv()
+
 llm = init_chat_model(
     model = "llama-3.3-70b-versatile",
     model_provider = "openai",
@@ -21,35 +22,32 @@ conversation = [
 st.title("Weather App")
 city = st.text_input("Enter city name: ")
 
-if st.button ("Get Weather and city"):
-    api_key = os.getenv("OPEN_WEATHER_API")
-    url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
-    
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        data = response.json()
+if st.button("Get Weather"):
+        api_key= os.getenv("OPENWEATHER_API_KEY")
+        url = (
+            "https://api.openweathermap.org/data/2.5/weather"
+            f"?appid={api_key}&units=metric&q={city}")
+        response = requests.get(url)
+        st.write("status:", response.status_code)
         
-        temp = data["main"]["temp"]
-        humidity = data["main"]["humidity"]
-        condition = data["weather"][0]["description"]
-
-        st.subheader("Weather Data")
-        st.write(f"Temperature: {temp} °C")
-        st.write(f"Humidity: {humidity}%")
-        st.write(f"Condition: {condition}")
+        if response.status_code == 200:
+            data = response.json()
+            
+            temp = data["main"]["temp"]
+            humidity = data["main"]["humidity"]
+            condition = data["weather"][0]["description"]
+            
+            prompt = f""" Explain todays weather in {city} in simple engish language.condition
+            Temperature is {temp} degree celsius,
+            Humidity is {humidity} percent
+            and condition is {condition} """
+            
+            explanation = llm.invoke(prompt)
+                        
+            st.subheader("Weather Application")
+            st.write(explanation.content)
         
-        prompt = f""" Explain todays weather in {city} in simple engish language.condition
-        Temperature is {temp} degree celsius,
-        Humidity is {humidity} percent
-        and condition is {condition} """
-        
-        explanation = llm.invoke(prompt)
-                      
-        st.subheader("Weather Application")
-        st.write(explanation.content)
-        
-    else:
-        st.error("City not found")
+        else:
+         st.error("City not found")
                       
                       

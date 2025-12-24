@@ -7,7 +7,6 @@ llm = init_chat_model(
     model_provider="openai",
     base_url = "https://api.groq.com/openai/v1",
     api_key = os.getenv("GROQ_API_KEY")
-    
 )
 
 conversation = [
@@ -36,5 +35,7 @@ while True:
             
     result = llm.invoke(llm_input)
     print(result)
+    print("-------------------------------")
     print(result.content)
+   
        

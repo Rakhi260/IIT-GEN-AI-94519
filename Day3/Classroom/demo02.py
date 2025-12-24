@@ -15,9 +15,9 @@ driver.implicitly_wait(10)
 search_box = driver.find_element(By.NAME,"q")
 
 # interact with the control
-# for ch in "dkte college ichalkaranji":
-#     search_box.send_keys(ch)
-#     time.sleep(0.2)
+for ch in "dkte college ichalkaranji":
+     search_box.send_keys(ch)
+     time.sleep(0.2)
 search_box.send_keys("dkte college ichalkaranji")
 search_box.send_keys(Keys.RETURN)
 

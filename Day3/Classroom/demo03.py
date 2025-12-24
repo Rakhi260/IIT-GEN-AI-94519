@@ -11,7 +11,6 @@ driver = webdriver.Chrome(options = chrome_options)
 driver.get("https://nilesh-g.github.io/learn-web/HTML/demo08.html")
 print("Initial Page Title: ",driver.title)
 
-
 #define wait startegy
 driver.implicitly_wait(10)
 

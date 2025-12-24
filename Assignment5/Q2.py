@@ -66,7 +66,7 @@ gemini_result = gemini_response.json()
 print("Groq Response:")
 print(groq_result["choices"][0]["message"]["content"])
 print("Time Taken:", round(groq_time, 3), "seconds")
-
+print("--------------------------------------------")
 print("\nGemini Response:")
 print(gemini_result["candidates"][0]["content"]["parts"][0]["text"])
 print("Time Taken:", round(gemini_time, 3), "seconds")
