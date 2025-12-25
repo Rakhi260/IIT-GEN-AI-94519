@@ -1,8 +1,6 @@
 import streamlit as st
 from langchain.chat_models import init_chat_model
 import os
-print("Program started")
-
 
 llm = init_chat_model(
     model = "llama-3.3-70b-versatile",
